@@ -1,0 +1,12 @@
+{
+  "default_min_savings_pct": 30,
+  "required_sections": [
+    "## EXTENDED COMPRESSION (v0.3.0)",
+    "NEVER APPLY THESE RULES TO:"
+  ],
+  "limitations": [
+    "Gate checks structural fidelity (headings/code blocks/URLs) and required-token presence.",
+    "Gate checks token savings thresholds and deterministic golden outputs.",
+    "Gate does not prove zero semantic loss for all prompts or all domains."
+  ]
+}

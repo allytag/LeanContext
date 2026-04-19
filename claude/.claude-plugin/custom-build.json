@@ -1,0 +1,7 @@
+{
+  "customFork": true,
+  "customVersion": "0.4.7-custom.0",
+  "upstreamBaseCommit": "c2ed24b3e5d412cd0c25197b2bc9af587621fd99",
+  "buildDate": "2026-04-19",
+  "notes": "Claude-compatible port of LeanContext 0.4.7 with thin-core live skill, truncation-safe compressor, OpenRouter support, and Claude-local secret path support"
+}

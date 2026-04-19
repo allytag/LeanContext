@@ -1,0 +1,45 @@
+{
+  "name": "leancontext",
+  "version": "0.4.7-custom.0",
+  "customFork": true,
+  "upstreamBaseCommit": "c2ed24b3e5d412cd0c25197b2bc9af587621fd99",
+  "description": "LeanContext: advanced token-saving mode. Cut filler. Keep technical accuracy.",
+  "author": {
+    "name": "Vivek Verma",
+    "url": "https://github.com/JuliusBrussee"
+  },
+  "homepage": "https://github.com/YOUR_GITHUB/LeanContext",
+  "repository": "https://github.com/YOUR_GITHUB/LeanContext",
+  "license": "MIT",
+  "keywords": [
+    "productivity",
+    "communication",
+    "brevity",
+    "writing",
+    "quality-gate",
+    "deterministic",
+    "codex-local",
+    "update-safe"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "LeanContext",
+    "shortDescription": "Token-efficient coding chat. Cut filler. Keep technical accuracy.",
+    "longDescription": "Advanced token-saving mode with thin-core anti-replay chat guardrails, deterministic quality gate, truncation-safe `/leancontext:compress` routing, OpenRouter support, and Codex-local install hardening.",
+    "developerName": "Vivek Verma",
+    "category": "Productivity",
+    "capabilities": [
+      "Write"
+    ],
+    "websiteURL": "https://github.com/YOUR_GITHUB/LeanContext",
+    "privacyPolicyURL": "https://github.com/YOUR_GITHUB/LeanContext/blob/main/README.md",
+    "termsOfServiceURL": "https://github.com/YOUR_GITHUB/LeanContext/blob/main/LICENSE",
+    "defaultPrompt": [
+      "Use LeanContext mode. Cut filler. Keep technical accuracy."
+    ],
+    "composerIcon": "./assets/leancontext-small.svg",
+    "logo": "./assets/leancontext.svg",
+    "screenshots": [],
+    "brandColor": "#0F766E"
+  }
+}

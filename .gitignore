@@ -1,0 +1,30 @@
+.DS_Store
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+*.log
+*.tmp
+*.bak
+*.original.md
+!codex/skills/compress/evals/fixtures/*.original.md
+!claude/skills/compress/evals/fixtures/*.original.md
+!claude/tests/leancontext-compress/*.original.md
+
+# Local secrets. Never publish real API keys.
+leancontext-openrouter.json
+*openrouter*.json
+*secret*.json
+*secrets*.json
+
+# Local benchmark output.
+benchmarks/results/*
+!benchmarks/results/.gitkeep
+*.gate.json
+*.bench.json
+
+# Editor/runtime noise.
+.idea/
+.vscode/
+node_modules/

@@ -1,0 +1,18 @@
+{
+  "name": "leancontext",
+  "metadata": {
+    "description": "LeanContext marketplace for advanced token-saving workflows."
+  },
+  "owner": {
+    "name": "Vivek Verma",
+    "url": "https://github.com/JuliusBrussee"
+  },
+  "plugins": [
+    {
+      "name": "leancontext",
+      "description": "LeanContext token-saving mode. Cut filler. Keep technical accuracy.",
+      "source": "./",
+      "category": "productivity"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "id": "weekly_status_low",
+  "risk": "low",
+  "min_savings_pct": 30,
+  "required_tokens": [
+    "TF-510",
+    "Playwright",
+    "Ctrl+K"
+  ]
+}

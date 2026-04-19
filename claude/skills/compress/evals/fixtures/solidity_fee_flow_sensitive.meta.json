@@ -1,0 +1,10 @@
+{
+  "id": "solidity_fee_flow_sensitive",
+  "risk": "high",
+  "min_savings_pct": 30,
+  "required_tokens": [
+    "`collectProtocolFees`",
+    "`PoolId`",
+    "0.3%"
+  ]
+}

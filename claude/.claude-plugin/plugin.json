@@ -1,0 +1,35 @@
+{
+  "name": "leancontext",
+  "version": "0.4.7-custom.0",
+  "description": "LeanContext: advanced token-saving mode for Claude Code. Cut filler while keeping technical accuracy.",
+  "author": {
+    "name": "Vivek Verma",
+    "url": "https://github.com/JuliusBrussee"
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/leancontext-activate.js\"",
+            "timeout": 5,
+            "statusMessage": "Loading LeanContext mode..."
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/leancontext-mode-tracker.js\"",
+            "timeout": 5,
+            "statusMessage": "Tracking LeanContext mode..."
+          }
+        ]
+      }
+    ]
+  }
+}

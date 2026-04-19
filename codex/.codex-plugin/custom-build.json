@@ -1,0 +1,7 @@
+{
+  "customFork": true,
+  "customVersion": "0.4.7-custom.0",
+  "upstreamBaseCommit": "c2ed24b3e5d412cd0c25197b2bc9af587621fd99",
+  "buildDate": "2026-04-19",
+  "notes": "Codex-local marketplace hardening + thin-core anti-replay leancontext chat guardrails + validator hardening + OpenRouter default tuned with savings-floor shrink pass, transient retry handling, and truncation-safe continuation"
+}
