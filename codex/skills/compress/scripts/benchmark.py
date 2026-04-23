@@ -40,10 +40,13 @@ def benchmark_pair(orig_path: Path, comp_path: Path):
 def _find_tests_dir() -> Path:
     here = Path(__file__).resolve()
     for parent in here.parents:
-        candidate = parent / "tests" / "leancontext-compress"
-        if candidate.exists():
-            return candidate
-    raise FileNotFoundError("Tests dir not found: tests/leancontext-compress")
+        for candidate in (
+            parent / "tests" / "shared" / "leancontext-compress",
+            parent / "tests" / "leancontext-compress",
+        ):
+            if candidate.exists():
+                return candidate
+    raise FileNotFoundError("Tests dir not found: tests/shared/leancontext-compress")
 
 
 def find_fixture_rows() -> list[tuple]:

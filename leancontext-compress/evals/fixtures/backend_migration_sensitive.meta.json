@@ -1,0 +1,10 @@
+{
+  "id": "backend_migration_sensitive",
+  "risk": "high",
+  "min_savings_pct": 30,
+  "required_tokens": [
+    "`npm run db:migrate`",
+    "`tasks(project_id, status, updated_at)`",
+    "`postgresql://svc:***@db.internal:5432/taskflow`"
+  ]
+}

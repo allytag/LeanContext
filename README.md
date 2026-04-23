@@ -1,209 +1,286 @@
 # LeanContext
 
-**Token-efficient AI coding chat without making the model dumb.**
+**Cuts AI coding chat tokens ~50–75% without dropping technical accuracy.**
 
-LeanContext is an advanced plugin for Codex and Claude Code that cuts filler, stops replay loops, compresses memory files, and keeps technical accuracy protected. It is built for long coding sessions where every token matters, but answer quality cannot drop.
+Works in Claude Code, Codex, Gemini CLI, Cursor, Windsurf, Cline, Copilot, and 40+ other agents via `npx skills`.
 
-## Why Developers Care
+---
 
-AI coding assistants waste budget on repeated context, polite padding, long recaps, and over-explaining obvious steps. Basic "be brief" prompts help a little, but they are fragile: the model drifts, repeats itself, or compresses the wrong thing.
+## Before / After
 
-LeanContext fixes that with a real system:
+**Without LeanContext**
+> Sure! I'd be happy to help you understand what this function does. Let me walk you through it step by step. First, looking at the top of the file, we can see that the function takes two parameters...
 
-- **Thin live prompt** keeps chat concise without bloating every turn.
-- **Delta-first follow-ups** answer only what changed instead of replaying prior state.
-- **Protected technical tokens** preserve code, file paths, exact errors, API names, numbers, units, and versions.
-- **Memory compression** shrinks `CLAUDE.md`, project notes, todos, and preference files with `/leancontext:compress`.
-- **Quality gate** checks deterministic fixtures before release claims.
-- **OpenRouter support** lets compression use budget-friendly models while Codex/Claude keep full power for coding.
-- **Update-safe installs** keep local plugin ownership stable across app refreshes.
+**With LeanContext**
+> `parseConfig(path, opts)` — reads JSON at `path`, merges with `opts`, returns validated config or throws `ConfigError`.
 
-## Better Than Basic Terse Plugins
+Same answer. Fraction of the tokens.
 
-| Feature | Basic terse prompt | LeanContext |
-|---|---:|---:|
-| Shorter chat output | Yes | Yes |
-| Anti-replay follow-up guardrails | No | Yes |
-| Memory-file compression | No | Yes |
-| Code/error/path preservation rules | Weak | Strong |
-| Deterministic quality gate | No | Yes |
-| OpenRouter compression backend | No | Yes |
-| Truncation-safe continuation | No | Yes |
-| Codex update-safe local installer | No | Yes |
-| Claude Code hooks + statusline | Maybe | Yes |
+---
 
-LeanContext is not just "speak shorter." It is a token-control layer for serious coding workflows.
+## What You Get
 
-## Current Proof
+| Feature | Basic "be brief" | LeanContext |
+|---|:---:|:---:|
+| Shorter chat output | ✓ | ✓ |
+| Delta-first follow-ups (no replay) | — | ✓ |
+| Protected code / paths / errors | Weak | Strong |
+| Memory-file compression | — | ✓ |
+| Deterministic quality gate | — | ✓ |
+| OpenRouter compression backend | — | ✓ |
+| Multi-agent distribution | — | ✓ |
+| Codex update-safe local install | — | ✓ |
+| Claude Code hooks + statusline | — | ✓ |
 
-Golden compression gate:
+---
 
-- `PASS 5/5`
-- Average savings: `53.26%`
-- Minimum fixture savings: `50.0%`
+## Results
 
-Claude live eval against older baseline:
+Golden compression gate: **5/5 pass**, average savings **53.26%**, minimum **50.0%**.
 
-- Current output tokens: `3291`
-- Older baseline output tokens: `3482`
-- Current saved `191` output tokens, about `5.49%`
-- Current won output-token count on `6/10` prompts
-- No quality regression observed in the 10-prompt sample
+Claude live eval (10-prompt sample):
 
-Important: LeanContext is designed to reduce average waste, especially long answers and replay-heavy follow-ups. It does not force every answer to be shorter when extra detail improves correctness.
+| | Output tokens |
+|---|---|
+| Baseline | 3482 |
+| LeanContext | 3291 |
+| Saved | 191 (5.49%) |
 
-## Repo Layout
+LeanContext targets waste — long answers and replay-heavy follow-ups — not every word. Short precise answers stay short.
 
-```text
-.
-├── codex/   # Codex Desktop plugin build, v0.4.7-custom.0
-├── claude/  # Claude Code plugin build, v0.4.7-custom.0
-├── README.md
-├── LICENSE
-└── .gitignore
+---
+
+## Install
+
+Fast path from a repo clone:
+
+**macOS / Linux**
+```bash
+python3 install.py
 ```
 
-This export contains no local cache, no `.git` history, no API keys, and no old compatibility alias. Primary slug is `leancontext`; commands use `/leancontext`.
+**Windows PowerShell**
+```powershell
+py install.py
+```
 
-## Install For Codex
+`install.py` auto-detects Codex + Claude Code, installs local independent copies, and can be undone with:
 
-From repo root:
+**macOS / Linux**
+```bash
+python3 uninstall.py
+```
+
+**Windows PowerShell**
+```powershell
+py uninstall.py
+```
+
+| Agent | Command |
+|---|---|
+| Claude Code | `python3 install.py --claude` |
+| Codex | `python3 install.py --codex` |
+| Gemini CLI | `gemini extensions install https://github.com/allytag/LeanContext` |
+| Cursor | `npx skills add allytag/LeanContext -a cursor` |
+| Windsurf | `npx skills add allytag/LeanContext -a windsurf` |
+| Copilot | `npx skills add allytag/LeanContext -a github-copilot` |
+| Cline | `npx skills add allytag/LeanContext -a cline` |
+| Other agents | `npx skills add allytag/LeanContext` |
+
+Claude Code, Gemini CLI, and Codex auto-activate when the repo is open. Cursor, Windsurf, Cline, and Copilot pick up the always-on rule files included in the repo.
+
+No repo lock-in after install:
+- Codex payload is copied to `~/plugins/leancontext`
+- Claude Code caches plugin in `~/.claude/plugins`
+
+One-command remote install:
+
+**macOS / Linux**
+```bash
+curl -fsSL https://raw.githubusercontent.com/allytag/LeanContext/main/install.py | python3 - --all
+```
+
+**Windows PowerShell**
+```powershell
+irm https://raw.githubusercontent.com/allytag/LeanContext/main/install.py | py - --all
+```
+
+One-command uninstall:
+
+**macOS / Linux**
+```bash
+curl -fsSL https://raw.githubusercontent.com/allytag/LeanContext/main/uninstall.py | python3 - --all
+```
+
+**Windows PowerShell**
+```powershell
+irm https://raw.githubusercontent.com/allytag/LeanContext/main/uninstall.py | py - --all
+```
+
+<details>
+<summary>Claude Code — detailed install</summary>
+
+From the repo root:
 
 ```bash
-cd codex
-python3 scripts/install_codex_local.py
+python3 install.py --claude
 ```
 
-Restart Codex Desktop if the plugin does not appear immediately.
+Standalone hooks (no plugin required):
 
-Installer behavior:
+```bash
+bash hooks/install.sh
+```
 
-- Symlinks plugin to `~/plugins/leancontext`.
-- Adds/updates local marketplace entry in `~/.agents/plugins/marketplace.json`.
-- Enables `leancontext@local`.
-- Syncs cache under `~/.codex/plugins/cache/local/leancontext/<version>`.
+Restart Claude Code after install.
+
+</details>
+
+<details>
+<summary>Codex — detailed install</summary>
+
+From the repo root:
+
+```bash
+python3 install.py --codex
+```
+
+The installer copies the plugin to `~/plugins/leancontext`, adds a local marketplace entry, and syncs the cache. Repo can be deleted after install.
 
 Health check:
 
 ```bash
-python3 scripts/doctor_codex_local.py
+python3 codex/scripts/doctor_codex_local.py
 ```
 
-## Install For Claude Code
+</details>
 
-From repo root:
-
-```bash
-claude plugin validate ./claude
-claude plugin marketplace add ./claude
-claude plugin install leancontext@leancontext
-claude plugin enable leancontext@leancontext
-```
-
-Restart Claude Code after install or update.
+---
 
 ## Commands
 
-- `/leancontext` — enable default full mode.
-- `/leancontext lite` — concise professional mode.
-- `/leancontext full` — terse technical fragments.
-- `/leancontext ultra` — maximum compression.
-- `/leancontext wenyan-lite|wenyan|wenyan-ultra` — classical Chinese compression variants.
-- `/leancontext-commit` — terse Conventional Commit message.
-- `/leancontext-review` — one-line code review findings.
-- `/leancontext:compress <file>` — compress markdown/text memory file.
+| Command | Effect |
+|---|---|
+| `/leancontext` | Enable default (full) mode |
+| `/leancontext lite` | Professional concise |
+| `/leancontext full` | Terse technical fragments |
+| `/leancontext ultra` | Maximum compression |
+| `/leancontext wenyan-lite\|wenyan\|wenyan-ultra` | Classical Chinese variants |
+| `/leancontext-commit` | Conventional Commit message, compressed |
+| `/leancontext-review` | One-line code review findings |
+| `/leancontext:compress <file>` | Compress a markdown memory file |
 
-## OpenRouter Setup
+---
 
-OpenRouter is optional. It is used by `/leancontext:compress` when configured.
+## Memory Compression
 
-Never commit real API keys.
+`/leancontext:compress` shrinks `CLAUDE.md`, project notes, todos, and preference files. Protected content (code blocks, file paths, error messages, API names, versions) is never touched.
+
+---
+
+## OpenRouter (Optional)
+
+Used by `/leancontext:compress` for budget-friendly compression models.
 
 ```bash
-export OPENROUTER_API_KEY="sk-or-v1-REPLACE_ME"
+export OPENROUTER_API_KEY="sk-or-v1-..."
 export LEANCONTEXT_OPENROUTER_MODEL="openrouter/elephant-alpha"
 ```
 
-Codex desktop secret file:
+Or store credentials in a local file (never committed):
 
-```bash
-mkdir -p ~/.codex
-chmod 700 ~/.codex
-$EDITOR ~/.codex/leancontext-openrouter.json
-```
-
-Claude Code secret file:
-
-```bash
-mkdir -p ~/.claude
-chmod 700 ~/.claude
-$EDITOR ~/.claude/leancontext-openrouter.json
-```
-
-Example JSON:
+**Claude Code:** `~/.claude/leancontext-openrouter.json`
+**Codex:** `~/.codex/leancontext-openrouter.json`
 
 ```json
 {
-  "OPENROUTER_API_KEY": "sk-or-v1-REPLACE_ME",
+  "OPENROUTER_API_KEY": "sk-or-v1-...",
   "LEANCONTEXT_OPENROUTER_MODEL": "openrouter/elephant-alpha",
   "LEANCONTEXT_TARGET_SAVINGS_PCT": "50"
 }
 ```
 
+---
+
 ## Quality Gate
 
-Codex:
+Validates compression structure, required tokens, and savings thresholds against deterministic fixtures.
 
 ```bash
-cd codex/skills/compress
-python3 -m scripts --gate --source golden --report-json /tmp/leancontext-codex-gate.json
-```
-
-Claude:
-
-```bash
+# Claude
 cd claude/skills/compress
-python3 -m scripts --gate --source golden --report-json /tmp/leancontext-claude-gate.json
+python3 -m scripts --gate --source golden
+
+# Codex
+cd codex/skills/compress
+python3 -m scripts --gate --source golden
 ```
 
-The gate validates structure, required tokens, protected sections, and token savings thresholds. It does not claim impossible universal proof for every future prompt or domain.
+## Uninstall
 
-## Safety Model
+From a repo clone:
 
-LeanContext does not compress protected technical material:
-
-- Code blocks
-- Backticked text
-- File paths
-- Commands
-- Commit messages
-- Exact error messages
-- API names
-- Technical identifiers
-- Direct documentation quotes
-- Numbers, units, and version strings
-
-This is why it can save tokens without intentionally lowering coding quality.
-
-## Publish Checklist
-
-- Replace `YOUR_GITHUB/LeanContext` placeholders in manifests/docs.
-- Keep `LICENSE`.
-- Do not commit `.env`, local secret JSON files, or real API keys.
-- Run Claude plugin validation.
-- Run Codex quality gate.
-- Run Claude quality gate.
-- Confirm plugin appears in both apps after fresh restart.
-
-Recommended first commit:
-
+**macOS / Linux**
 ```bash
-git init
-git add .
-git commit -m "Initial LeanContext release"
+python3 uninstall.py
 ```
 
-## Positioning
+**Windows PowerShell**
+```powershell
+py uninstall.py
+```
 
-LeanContext is for developers who want longer sessions, lower token waste, and cleaner outputs without sacrificing the full coding power of Codex or Claude.
+Target one host only:
 
+**macOS / Linux**
+```bash
+python3 uninstall.py --claude
+python3 uninstall.py --codex
+```
+
+**Windows PowerShell**
+```powershell
+py uninstall.py --claude
+py uninstall.py --codex
+```
+
+---
+
+## Safety
+
+LeanContext never compresses:
+
+- Code blocks and backtick spans
+- File paths and shell commands
+- Exact error messages
+- API names and technical identifiers
+- Numbers, units, and version strings
+- Direct documentation quotes
+
+---
+
+## Repo Layout
+
+```
+.
+├── skills/               # Unified skill definitions (Claude / Gemini / npx)
+├── hooks/                # Standalone Claude Code hooks
+├── commands/             # Claude Code slash commands
+├── plugins/leancontext/  # Codex plugin payload
+├── leancontext/          # npx skills entry
+├── leancontext-compress/ # Compression skill (npx / Gemini)
+├── .cursor/              # Cursor rule + skill
+├── .windsurf/            # Windsurf rule + skill
+├── .clinerules/          # Cline rule
+├── .github/              # Copilot instructions
+├── .codex/               # Codex auto-start hook
+├── codex/                # Codex plugin build
+├── claude/               # Claude Code plugin build
+└── evals/                # Token-savings eval harness
+```
+
+---
+
+## License
+
+[MIT](LICENSE)

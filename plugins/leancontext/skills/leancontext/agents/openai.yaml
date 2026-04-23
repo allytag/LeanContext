@@ -1,0 +1,6 @@
+interface:
+  display_name: "LeanContext"
+  short_description: "Token-efficient coding chat. Cut filler. Keep technical accuracy."
+  icon_small: "./assets/leancontext-small.svg"
+  icon_large: "./assets/leancontext.svg"
+  default_prompt: "Use $leancontext. Brief. Exact technical substance. Delta-first follow-ups. No replay. Ultra-short work updates."

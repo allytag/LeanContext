@@ -25,7 +25,13 @@ Do not treat `~/.codex/.tmp/*` or bundled marketplaces as the source of truth. T
 
 ## Install / Repair
 
-Run from the plugin root:
+Preferred from repo root:
+
+```bash
+python3 install.py --codex
+```
+
+Manual dev install from plugin root:
 
 ```bash
 python3 scripts/install_codex_local.py
@@ -48,6 +54,14 @@ python3 scripts/doctor_codex_local.py
 - Codex cache contains the current source version
 - `/leancontext:compress` backend path still exists
 - live backend auth readiness for OpenRouter, Anthropic API, or Claude CLI
+
+## Uninstall
+
+From repo root:
+
+```bash
+python3 uninstall.py --codex
+```
 
 ## Live Backend Auth
 
@@ -86,6 +100,6 @@ Compression benchmark and gate still live under:
 
 ```bash
 cd <repo>/codex/skills/compress
-python3 -m scripts --gate --source golden --report-json /tmp/leancontext-gate-report.json
+python3 -m scripts --gate --source golden --report-json leancontext-gate-report.json
 python3 -m scripts --benchmark
 ```

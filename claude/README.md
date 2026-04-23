@@ -7,13 +7,27 @@ LeanContext is a Claude Code plugin for token-efficient coding chat. It cuts fil
 From repo root:
 
 ```bash
+python3 install.py --claude
+```
+
+Restart Claude Code after install or update.
+
+Manual equivalent:
+
+```bash
 claude plugin validate ./claude
 claude plugin marketplace add ./claude
 claude plugin install leancontext@leancontext
 claude plugin enable leancontext@leancontext
 ```
 
-Restart Claude Code after install or update.
+## Uninstall
+
+From repo root:
+
+```bash
+python3 uninstall.py --claude
+```
 
 ## Commands
 
@@ -66,7 +80,7 @@ Never commit real API keys.
 
 ```bash
 cd skills/compress
-python3 -m scripts --gate --source golden --report-json /tmp/leancontext-claude-gate.json
+python3 -m scripts --gate --source golden --report-json leancontext-claude-gate.json
 ```
 
 Expected current result: `PASS 5/5`, avg savings around `53.26%`, min around `50.0%`.
@@ -74,4 +88,3 @@ Expected current result: `PASS 5/5`, avg savings around `53.26%`, min around `50
 ## Notes
 
 LeanContext affects visible assistant output and memory-file compression. It does not intentionally reduce the model reasoning path, code quality, or safety warnings.
-

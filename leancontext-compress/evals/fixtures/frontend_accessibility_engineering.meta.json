@@ -1,0 +1,10 @@
+{
+  "id": "frontend_accessibility_engineering",
+  "risk": "high",
+  "min_savings_pct": 30,
+  "required_tokens": [
+    "`useMemo`",
+    "`aria-label`",
+    "`/src/components/NavBar.tsx`"
+  ]
+}

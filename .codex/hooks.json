@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$PWD/codex/hooks/run-leancontext.sh\"",
+            "timeout": 5,
+            "statusMessage": "Loading LeanContext mode..."
+          }
+        ]
+      }
+    ]
+  }
+}

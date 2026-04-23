@@ -98,7 +98,7 @@ class HookScriptTests(unittest.TestCase):
             settings = {
                 "statusLine": {
                     "type": "command",
-                    "command": "bash /tmp/custom-status-with-leancontext.sh",
+                    "command": "custom-status-with-leancontext",
                 },
                 "hooks": {
                     "SessionStart": [
@@ -130,7 +130,7 @@ class HookScriptTests(unittest.TestCase):
             updated = json.loads((claude_dir / "settings.json").read_text())
             self.assertEqual(
                 updated["statusLine"]["command"],
-                "bash /tmp/custom-status-with-leancontext.sh",
+                "custom-status-with-leancontext",
             )
             self.assertNotIn("hooks", updated)
 
@@ -144,7 +144,7 @@ class HookScriptTests(unittest.TestCase):
                     {
                         "statusLine": {
                             "type": "command",
-                            "command": "bash /tmp/my-statusline.sh",
+                            "command": "my-statusline",
                         }
                     }
                 )

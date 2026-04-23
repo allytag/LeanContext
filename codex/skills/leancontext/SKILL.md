@@ -69,4 +69,4 @@ Code/commits/PRs: write normal. Explanations around them stay LeanContext style 
 Level persists until changed or session end.
 
 For release-confidence claims on sensitive workflows, run the compress quality gate before claiming readiness:
-`python3 -m scripts --gate --source golden --report-json /tmp/leancontext-gate-report.json`
+`python3 -m scripts --gate --source golden --report-json leancontext-gate-report.json`
