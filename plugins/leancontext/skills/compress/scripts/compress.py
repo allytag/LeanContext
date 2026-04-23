@@ -23,10 +23,11 @@ FENCE_OPEN_REGEX = re.compile(r"^(\s{0,3})(`{3,}|~{3,})(.*)$")
 INLINE_CODE_SPAN_REGEX = re.compile(r"(?<!`)`[^`\n]+`(?!`)")
 
 # Filenames and paths that almost certainly hold secrets or PII. Compressing
-# them ships raw bytes to the Anthropic API — a third-party data boundary that
-# developers on sensitive codebases cannot cross. detect.py already skips .env
-# by extension, but credentials.md / secrets.txt / ~/.aws/credentials would
-# slip through the natural-language filter. This is a hard refuse before read.
+# them ships raw bytes to the configured LLM backend — a third-party data
+# boundary developers on sensitive codebases cannot cross. detect.py already
+# skips .env by extension, but credentials.md / secrets.txt / ~/.aws/credentials
+# would slip through the natural-language filter. This is a hard refuse before
+# read.
 SENSITIVE_BASENAME_REGEX = re.compile(
     r"(?ix)^("
     r"\.env(\..+)?"
@@ -200,7 +201,8 @@ MAX_RETRIES = 2
 MAX_EXTRA_SHRINK_PASSES = 2
 OPENROUTER_MAX_RETRIES = 3
 OPENROUTER_MAX_CONTINUATIONS = 4
-LOCAL_SECRET_PATH = Path.home() / ".codex" / "leancontext-openrouter.json"
+CLAUDE_CONFIG_DIR = Path(os.environ.get("CLAUDE_CONFIG_DIR", str(Path.home() / ".claude")))
+LOCAL_SECRET_PATH = CLAUDE_CONFIG_DIR / "leancontext-openrouter.json"
 
 
 # ---------- Backend Calls ----------
@@ -718,14 +720,14 @@ def compress_file(filepath: Path) -> bool:
         raise ValueError(f"File too large to compress safely (max 500KB): {filepath}")
 
     # Refuse files that look like they contain secrets or PII. Compressing ships
-    # the raw bytes to the Anthropic API — a third-party boundary — so we fail
-    # loudly rather than silently exfiltrate credentials or keys. Override is
-    # intentional: the user must rename the file if the heuristic is wrong.
+    # the raw bytes to the configured backend, so we fail loudly rather than
+    # silently exfiltrate credentials or keys. Override is intentional: the user
+    # must rename the file if the heuristic is wrong.
     if is_sensitive_path(filepath):
         raise ValueError(
             f"Refusing to compress {filepath}: filename looks sensitive "
             "(credentials, keys, secrets, or known private paths). "
-            "Compression sends file contents to the Anthropic API. "
+            "Compression sends file contents to the configured LLM backend. "
             "Rename the file if this is a false positive."
         )
 

@@ -45,6 +45,7 @@ Optional override:
 - Default tuned OpenRouter model: `openrouter/elephant-alpha`
 - `LEANCONTEXT_OPENROUTER_MAX_TOKENS` to raise/lower single-call OpenRouter output budget (default `8192`)
 - `LEANCONTEXT_TARGET_SAVINGS_PCT` to decide when the extra shrink pass should run (default `50`)
+- Claude-local secret file also works: `~/.claude/leancontext-openrouter.json`
 
 4. Return result to user
 
@@ -119,21 +120,21 @@ Compressed:
 Before release claims on sensitive workflows, run deterministic gate:
 
 ```bash
-cd <repo>/codex/skills/compress
+cd <directory_containing_this_SKILL.md>
 python3 -m scripts --gate --source golden --report-json leancontext-gate-report.json
 ```
 
 Benchmark shortcut from same entrypoint:
 
 ```bash
-cd <repo>/codex/skills/compress
+cd <directory_containing_this_SKILL.md>
 python3 -m scripts --benchmark
 ```
 
 Live backend check (requires API/CLI auth):
 
 ```bash
-cd <repo>/codex/skills/compress
+cd <directory_containing_this_SKILL.md>
 python3 -m scripts --gate --source live --report-json leancontext-gate-live-report.json
 ```
 
